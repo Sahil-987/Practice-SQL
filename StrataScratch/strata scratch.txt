@@ -1,0 +1,32 @@
+Q-)
+
+with emp_dept as 
+    (select department,max(salary)
+    from db_employee emp
+    join db_dept dp
+    on emp.department_id = dp.id
+    where
+        dp.department in ('engineering','marketing')
+    group by
+        department)
+select e1.max - e2.max as salary_difference
+from emp_dept e1 
+join emp_dept e2
+on e1.max != e2.max
+where
+    e1.max > e2.max
+
+
+
+
+
+Q-) Finding updated records
+
+select id,first_name,last_name,department_id,
+        max(salary)
+from 
+ms_employee_salary
+group by
+    id,first_name,last_name,department_id
+order by
+    id
